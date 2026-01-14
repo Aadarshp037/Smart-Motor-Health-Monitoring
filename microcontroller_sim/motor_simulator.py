@@ -14,6 +14,7 @@ def generate_motor_data():
         "temperature": round(random.uniform(40, 95), 2)
     }
 
+# Create file with header if it doesn't exist
 if not os.path.exists(DATA_PATH):
     with open(DATA_PATH, "w", newline="") as f:
         writer = csv.writer(f)

@@ -1,6 +1,10 @@
 import random
 import time
 import csv
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(BASE_DIR, "..", "data", "motor_data.csv")
 
 def generate_motor_data():
     return {
@@ -10,15 +14,16 @@ def generate_motor_data():
         "temperature": round(random.uniform(40, 95), 2)
     }
 
-with open("../data/motor_data.csv", "w", newline="") as f:
-    writer = csv.writer(f)
-    writer.writerow(["voltage", "current", "rpm", "temperature"])
+if not os.path.exists(DATA_PATH):
+    with open(DATA_PATH, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["voltage", "current", "rpm", "temperature"])
 
 while True:
     data = generate_motor_data()
     print(data)
 
-    with open("../data/motor_data.csv", "a", newline="") as f:
+    with open(DATA_PATH, "a", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(data.values())
 
